@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import mx from "../MxGEditor/mxgraph";
+//import mx from "../MxGEditor/mxgraph";
 // import { mxGraph, mxGraphModel } from "mxgraph";
 import ProjectService from "../../Application/Project/ProjectService";
 
@@ -13,6 +13,11 @@ import { stringify } from "querystring";
 import { join } from "path";
 import MxgraphUtils from "../../Infraestructure/Mxgraph/MxgraphUtils";
 import "./MxPalette.css"
+import Cell from "../VariaMosGraph/logic/entities/cell";
+import Geometry from "../VariaMosGraph/logic/entities/geometry";
+import Multiplicity from "../VariaMosGraph/logic/entities/multiplicity";
+import vxStencil from "../VariaMosGraph/vxStencil";
+import vxToolbar from "../VariaMosGraph/vxToolbar";
 
 interface Props {
   projectService: ProjectService;
@@ -60,10 +65,10 @@ export default class MxPalette extends Component<Props, State> {
     );
   }
 
-  createVertex(type: any, element: any) {
-    let doc = mx.mxUtils.createXmlDocument();
-    let node = doc.createElement(type);
-    node.setAttribute("type", type);
+  createVertex(type: any, element: any) { 
+    let node={
+      type : type 
+    } 
     let style = "shape=" + type;
     if (element.design) {
       if (element.design.includes("shape=")) {
@@ -74,9 +79,9 @@ export default class MxPalette extends Component<Props, State> {
     if(""+element.resizable=="false"){
       style+=";resizable=0;";
     }
-    let vertex = new mx.mxCell(
+    let vertex = new Cell(
       node,
-      new mx.mxGeometry(0, 0, element.width, element.height),
+      new Geometry(0, 0, element.width, element.height),
       style
     );
     vertex.setConnectable(true);
@@ -248,7 +253,7 @@ export default class MxPalette extends Component<Props, State> {
       throw new Error("The element #portal wasn't found");
     }
     divToolbar.innerHTML = "";
-    const toolbar = new mx.mxToolbar(divToolbar);
+    const toolbar = new vxToolbar(divToolbar);
 
     let elementName: any = "";
 
@@ -274,7 +279,7 @@ export default class MxPalette extends Component<Props, State> {
       }
     }
     for (var key in dic) {
-      let mul = new mx.mxMultiplicity(
+      let mul = new Multiplicity(
         true,
         key,
         null,
@@ -349,7 +354,8 @@ export default class MxPalette extends Component<Props, State> {
   }
 
   createElementInPalette(graph: any, languageDefinition: any, type: any, element: any, vertexToClone: any, divToolbar: any, toolbar: any) {
-    let me = this;
+    let me = this; 
+    return;//despues lo arreglamos :)
     let drapAndDropCreation = function (graph: any, evt: any, cell: any) {
       try {
         graph.stopEditing(false);
@@ -376,19 +382,19 @@ export default class MxPalette extends Component<Props, State> {
     }
     if (element.draw) {
       let shape = atob(element.draw);
-      let ne: any = mx.mxUtils.parseXml(shape).documentElement;
-      ne.setAttribute("name", type);
+      let ne={
+        name:type,
+        shape: shape
+      }; 
       MxgraphUtils.modifyShape(ne);
-      let s: any = mx.mxStencil;
-      s.allowEval = true;
-      let stencil = new mx.mxStencil(ne);
-      mx.mxStencilRegistry.addStencil(type, stencil);
+      let stencil = new vxStencil(type, shape);
+      graph.addStencil(type, stencil);
     }
     divToolbar.appendChild(mdiv);
     let img = toolbar.addMode(element.label, iconUrl, drapAndDropCreation);
     // mspan.innerText = key;
 
-    mx.mxUtils.makeDraggable(img, graph, drapAndDropCreation);
+    graph.makeDraggable(img, graph, drapAndDropCreation);
 
     let enter = document.createElement("br");
     enter.innerText = element.label;

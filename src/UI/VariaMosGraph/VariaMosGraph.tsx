@@ -3,6 +3,7 @@ import Model from "./logic/entities/model";
 import Cell from "./logic/entities/cell";
 import { VariamosGraphView } from "./VariamosGraphView";
 import vxStencil from "./vxStencil";
+import Multiplicity from "./logic/entities/multiplicity";
 
 interface Props { 
 }
@@ -13,6 +14,7 @@ export class VariaMosGraph extends Component<Props, State> {
   model:Model; //el modelo interno que contiente los elementos y las relaciones (flechas)
   convertValueToString;
   enabled=true;
+  multiplicities:Multiplicity[];
 
   constructor(props: Props) {
     super(props); 
@@ -87,7 +89,7 @@ export class VariaMosGraph extends Component<Props, State> {
 
   getSelectionCells():Cell[]{
     //retornar celdas (elementos) seleccionadas
-    return null;
+    return [];
   }
 
   removeCells(cells:Cell[], includeEdges?: boolean){
@@ -115,7 +117,7 @@ export class VariaMosGraph extends Component<Props, State> {
     //se instancia la celda en el modelo etc...
     let cell=new Cell();
     cell.value=value;
-    return value;
+    return cell;
   }
 
   insertEdge(parent: Cell, id: string | null, value: any, source: Cell, target: Cell, style?: string): Cell{
@@ -159,6 +161,12 @@ export class VariaMosGraph extends Component<Props, State> {
   addStencil(type:string, stencil:vxStencil){
    // los stencil son los que se encargan de dibujar los cell (cajas) de acuerdo al tipo
   }
+
+  makeDraggable(img, graph, drapAndDropCreation){
+    //esto es para capturar el evento cuando el usuario arrastra un elemento de la paleta al graficador
+  }
+
+ 
 
   render(){
     return  (

@@ -62,7 +62,7 @@ export default class VxgraphUtils {
 
     static modifyShape(type:string, xmlShape:string) {
         // let foreground = ne.children[1];  //convertir el xml para extraer los text y mostrar el texto según las propiedades
-        throw Error("Not implemented");
+        return;
         let foreground = null;
         for (let i = 0; i < foreground.children.length; i++) {
             const child = foreground.children[i];
@@ -200,7 +200,7 @@ export default class VxgraphUtils {
     static GetSelectedElementsIds(graph: VariaMosGraph, model: Model) {
         let ids = [];
         if (graph.isEnabled()) {
-            let cells = graph.getSelectionCells();
+            let cells = graph.getSelectionCells(); 
             for (let i = 0; i < cells.length; i++) {
                 const cell = cells[i];
                 if (cell.value) {

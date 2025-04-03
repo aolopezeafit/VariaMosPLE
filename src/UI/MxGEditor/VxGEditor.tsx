@@ -685,7 +685,7 @@ export default class VxGEditor extends Component<Props, State> {
     if (languageDefinition.concreteSyntax.relationships) {
       if (languageDefinition.concreteSyntax.relationships[relationship.type]) {
         if (languageDefinition.concreteSyntax.relationships[relationship.type].label_fixed) {
-          edge.value.setAttribute("label", languageDefinition.concreteSyntax.relationships[relationship.type].label_fixed);
+          edge.value["label"]=languageDefinition.concreteSyntax.relationships[relationship.type].label_fixed;
           return;
         }
         else if (languageDefinition.concreteSyntax.relationships[relationship.type].label_property) {
@@ -693,7 +693,7 @@ export default class VxGEditor extends Component<Props, State> {
           for (let p = 0; p < relationship.properties.length; p++) {
             const property = relationship.properties[p];
             if (property.name == label_property) {
-              edge.value.setAttribute("label", property.value);
+              edge.value["label"]=property.value;
               return;
             }
           }
@@ -701,9 +701,9 @@ export default class VxGEditor extends Component<Props, State> {
       }
     }
     if (!label_property) {
-      edge.value.setAttribute("label", relationship.name);
+      edge.value["label"]= relationship.name;;
     } else {
-      edge.value.setAttribute("label", "");
+      edge.value["label"]=  "";
     }
   }
 
@@ -720,16 +720,16 @@ export default class VxGEditor extends Component<Props, State> {
       return;
     }
 
-    vertice.value.setAttribute("Name", element.name);
+    vertice.value["Name"]= element.name;
     for (let i = 0; i < element.properties.length; i++) {
       const p = element.properties[i];
-      vertice.value.setAttribute(p.name, p.value);
+      vertice.value[p.name]= p.value;
     }
 
     if (languageDefinition.concreteSyntax.elements) {
       if (languageDefinition.concreteSyntax.elements[element.type]) {
         if (languageDefinition.concreteSyntax.elements[element.type].label_fixed) {
-          vertice.value.setAttribute("label", languageDefinition.concreteSyntax.elements[element.type].label_fixed);
+          vertice.value["label"]=  languageDefinition.concreteSyntax.elements[element.type].label_fixed;
           return;
         }
         else if (languageDefinition.concreteSyntax.elements[element.type].label_property) {
@@ -737,7 +737,7 @@ export default class VxGEditor extends Component<Props, State> {
           for (let p = 0; p < element.properties.length; p++) {
             const property = element.properties[p];
             if (property.name == languageDefinition.concreteSyntax.elements[element.type].label_property) {
-              vertice.value.setAttribute("label", property.value);
+              vertice.value["label"]=  property.value;
               return;
             }
           }
@@ -745,9 +745,9 @@ export default class VxGEditor extends Component<Props, State> {
       }
     }
     if (!label_property) {
-      vertice.value.setAttribute("label", element.name);
+      vertice.value["label"]=  element.name;
     } else {
-      vertice.value.setAttribute("label", "");
+      vertice.value["label"]=  "";
     }
 
 

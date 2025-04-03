@@ -1,6 +1,22 @@
 import GeometryPoint from "./geometryPoint"; 
 
 export default class Geometry{ 
+    private _x: number;
+     public get x(): number {
+         return this._x;
+     }
+     public set x(value: number) {
+         this._x = value;
+     }
+ 
+     private _y: number;
+     public get y(): number {
+         return this._y;
+     }
+     public set y(value: number) {
+         this._y = value;
+     }
+
     private _width: number;
     public get width(): number {
         return this._width;
@@ -33,5 +49,14 @@ export default class Geometry{
         this._points = value;
     }
  
+
+
+    constructor(x, y, width, height){
+        this.x=x;
+        this.y=y;
+        this.width=width;
+        this.height=height;
+    }
+
 
 }

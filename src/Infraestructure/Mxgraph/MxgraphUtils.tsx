@@ -326,6 +326,7 @@ export default class MxgraphUtils {
     }
 
     static modifyShape(ne: any) {
+        return; //esto es para modificar el texto del element para que cargue informacion dinamica del objeto en value del cell
         let foreground = ne.children[1];
         for (let i = 0; i < foreground.children.length; i++) {
             const child = foreground.children[i];

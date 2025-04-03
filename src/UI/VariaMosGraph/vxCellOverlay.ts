@@ -1,4 +1,6 @@
 import GeometryPoint from "./logic/entities/geometryPoint";
+import { vxConstants } from "./vxConstants";
+import { vxEvent } from "./vxEvent";
 import vxImage from "./vxImage";
 
 export default class vxCellOverlay {
